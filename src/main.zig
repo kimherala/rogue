@@ -1,6 +1,6 @@
-const std = @import("std");
+const Game = @import("game.zig").Game;
 
 pub fn main() anyerror!void {
-    const stdout = std.io.getStdOut().writer();
-    try stdout.print("Hello, World!", .{});
+    var game = Game.new();
+    try game.loop();
 }
