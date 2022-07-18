@@ -1,4 +1,5 @@
 const std = @import("std");
+const Allocator = std.mem.Allocator;
 const World = @import("world.zig").World;
 
 pub const Game = struct {
@@ -6,9 +7,9 @@ pub const Game = struct {
 
     world: World,
 
-    pub fn new() Self {
+    pub fn new(allocator: Allocator) Self {
         return Game{
-            .world = World.new(10, 10)
+            .world = World.new(allocator, 10, 10)
         };
     }
 

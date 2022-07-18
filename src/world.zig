@@ -1,13 +1,23 @@
+const std = @import("std");
+const Allocator = std.mem.Allocator;
+const Entity = @import("entity.zig").Entity;
+
 pub const World = struct {
     const Self = @This();
+
+    player: Entity,
+    entities: []Entity,
 
     width: i64,
     height: i64,
 
-    pub fn new(w: i64, h: i64) Self {
+    pub fn new(allocator: Allocator, width: i64, height: i64) Self {
+        _ = allocator;
         return Self {
-            .width = w,
-            .height = h,
+            .player = undefined,
+            .entities = undefined,
+            .width = width,
+            .height = height,
         };
     }
 
