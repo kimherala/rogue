@@ -5,8 +5,8 @@ pub fn build(b: *std.build.Builder) void {
     // what target to build for. Here we do not override the defaults, which
     // means any target is allowed, and the default is native. Other options
     // for restricting supported target set are available.
-    const target = b.standardTargetOptions(.{});
-
+    const target = b.standardTargetOptions(.{ .default_target = .{ .abi = .gnu } });
+    
     // Standard release options allow the person running `zig build` to select
     // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall.
     const mode = b.standardReleaseOptions();
@@ -14,6 +14,14 @@ pub fn build(b: *std.build.Builder) void {
     const exe = b.addExecutable("rogue", "src/main.zig");
     exe.setTarget(target);
     exe.setBuildMode(mode);
+    exe.install();
+
+    const sdl_path = "C:\\lib\\SDL2-2.0.14\\";
+    exe.addIncludeDir(sdl_path ++ "include");
+    exe.addLibPath(sdl_path ++ "lib\\x64");
+    b.installBinFile(sdl_path ++ "lib\\x64\\SDL2.dll", "SDL2.dll");
+    exe.linkSystemLibrary("sdl2");
+    exe.linkLibC();
     exe.install();
 
     const run_cmd = exe.run();
