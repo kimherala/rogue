@@ -1,0 +1,2 @@
+# rogue
+ Generic roguelike game.
