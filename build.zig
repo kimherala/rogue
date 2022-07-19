@@ -16,10 +16,13 @@ pub fn build(b: *std.build.Builder) void {
     exe.setBuildMode(mode);
     exe.install();
 
-    const sdl_path = "C:\\lib\\SDL2-2.0.14\\";
-    exe.addIncludeDir(sdl_path ++ "include");
-    exe.addLibPath(sdl_path ++ "lib\\x64");
-    b.installBinFile(sdl_path ++ "lib\\x64\\SDL2.dll", "SDL2.dll");
+    if (target.isWindows()) {
+        const sdl_path = "C:\\lib\\SDL2-2.0.14\\";
+        exe.addIncludeDir(sdl_path ++ "include");
+        exe.addLibPath(sdl_path ++ "lib\\x64");
+        b.installBinFile(sdl_path ++ "lib\\x64\\SDL2.dll", "SDL2.dll");
+    }
+
     exe.linkSystemLibrary("sdl2");
     exe.linkLibC();
     exe.install();
