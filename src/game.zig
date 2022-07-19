@@ -30,7 +30,7 @@ pub const Game = struct {
             var sdl_event: sdl.SDL_Event = undefined;
             while (sdl.SDL_PollEvent(&sdl_event) != 0) {
                 switch (sdl_event.type) {
-                    sdl.SDL_QUIT => break :mainloop,
+                    sdl.SDL_QUIT => break :gameloop,
                     else => {},
                 }   
             }
